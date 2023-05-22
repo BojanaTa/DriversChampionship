@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Drivers from "./components/Drivers";
+import Teams from "./components/Teams";
+import Races from "./components/Races";
+import DriversDetails from "./components/DriversDetails";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = () => {
+    return (
+        <div className="navigation">
+
+            <Router>
+
+                <nav className="nav-bar">
+                    <ul>
+                        <li>
+                            <Link to="/">Drivers</Link>
+                        </li>
+                        <li>
+                            <Link to="/teams">Teams</Link>
+                        </li>
+                        <li>
+                            <Link to="/races">Races</Link>
+                        </li>
+                    </ul>
+                </nav>
+
+                <Routes>
+                    <Route path="/" element={<Drivers />} />
+                    {/* <Route path="/details/:id" element={<DriversDetails />} /> */}
+
+                    <Route path="/teams" element={<Teams />} />
+                    <Route path="/races" element={<Races />} />
+                </Routes>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
