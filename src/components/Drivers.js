@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Drivers = () => {
     const [drivers, setDrivers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getDrivers();
@@ -18,30 +20,34 @@ const Drivers = () => {
         console.log(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings);
     }
 
-    
+    const handleClickDetails = (id) => {
+        // console.log(id);
+        const linkTo = `/details/${id}`;
+        navigate(linkTo);
+    }
+
     return (
         <div>
             <h1>Drivers</h1>
-             <table>
+            <table>
                 <thead>
                     <tr>
                         <th>Drivers Championships Standings - 2013</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {drivers.map((driver,i) =>
-                        <tr key={i}>
+                    {drivers.map(driver =>
+                        <tr key={driver.Driver.driverId}>
                             <td>{driver.position}</td>
-                            <td>{driver.Driver.givenName} {driver.Driver.familyName}</td>
+                            <td onClick={() => handleClickDetails(driver.Driver.driverId)}>
+                                {driver.Driver.givenName} {driver.Driver.familyName}
+                            </td>
                             <td>{driver.Constructors[0].name}</td>
                             <td>{driver.points}</td>
-                           
-                           
                         </tr>
-                    )}  
-
+                    )}
                 </tbody>
-            </table> 
+            </table>
         </div>
     );
 }
