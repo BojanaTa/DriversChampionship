@@ -34,7 +34,9 @@ const DriversDetails = () => {
             <div className="driver-details">
                 <p>Drivers details</p>
                 <p>{driverDetails.familyName}</p>
-                {/* <img src="../images/link-black.png"></img> */}
+                <div>
+                {/* <img src="../images/link-black.png"></img>  */}
+                </div>
             </div>
             <table>
                 <thead>

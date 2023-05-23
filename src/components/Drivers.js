@@ -28,7 +28,7 @@ const Drivers = () => {
 
     return (
         <div>
-            <h1>Drivers</h1>
+            <h1>Drivers Championships</h1>
             <table>
                 <thead>
                     <tr>
