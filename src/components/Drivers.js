@@ -29,12 +29,8 @@ const Drivers = () => {
     return (
         <div className="container">
             <h1>Drivers Championships</h1>
+            <div className="header">Drivers Championships Standings - 2013</div>
             <table className="custom-table">
-                <thead>
-                        <tr>
-                            <td>Drivers Championships Standings - 2013</td>
-                        </tr>
-                </thead>
                 <tbody>
                     {drivers.map(driver =>
                         <tr key={driver.Driver.driverId}>
