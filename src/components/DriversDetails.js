@@ -39,6 +39,7 @@ const DriversDetails = () => {
                     <img src={`/images/${driverDetails.familyName}.jpg`} alt="Drivers Logo" />
                 </div>
                 <p>{driverDetails.givenName} {driverDetails.familyName}</p>
+                <p>Country: {driverDetails.nationality}</p>
                 
 
                 

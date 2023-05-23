@@ -9,14 +9,15 @@ import DriversDetails from "./components/DriversDetails";
 const App = () => {
     return (
         <div className="navigation">
-            <div>
-                <img src="/images/F1-logo.png" alt="Drivers Logo"/> 
-
-            </div>
 
             <Router>
 
                 <nav className="nav-bar">
+                    <div className="img">
+                        <img src="/images/F1-logo.png" alt="Drivers Logo" />
+
+                    </div>
+
                     <ul>
                         <li>
                             <Link to="/">Drivers</Link>
@@ -34,7 +35,10 @@ const App = () => {
                     <Route path="/" element={<Drivers />} />
                     <Route path="/details/:id" element={<DriversDetails />} />
 
+
                     <Route path="/teams" element={<Teams />} />
+                   
+
                     <Route path="/races" element={<Races />} />
                 </Routes>
             </Router>

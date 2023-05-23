@@ -27,13 +27,13 @@ const Drivers = () => {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Drivers Championships</h1>
-            <table>
+            <table className="custom-table">
                 <thead>
-                    <tr>
-                        <th>Drivers Championships Standings - 2013</th>
-                    </tr>
+                        <tr>
+                            <td>Drivers Championships Standings - 2013</td>
+                        </tr>
                 </thead>
                 <tbody>
                     {drivers.map(driver =>
