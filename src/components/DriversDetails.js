@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+
+
 const DriversDetails = () => {
     const [driverDetails, setDriverDetails] = useState({});
     const [racesDetails, setRacesDetails] = useState([]);
@@ -33,22 +35,31 @@ const DriversDetails = () => {
         <div>
             <div className="driver-details">
                 <p>Drivers details</p>
-                <p>{driverDetails.familyName}</p>
                 <div>
-                {/* <img src="../images/link-black.png"></img>  */}
+                    <img src={`/images/${driverDetails.familyName}.jpg`} alt="Drivers Logo" />
                 </div>
+                <p>{driverDetails.givenName} {driverDetails.familyName}</p>
+                <p>Country: {driverDetails.nationality}</p>
+                
+
+                
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
+                        <th>Round</th>
+                        <th>Grand Prix</th>
+                        <th>Team</th>
+                        <th>Grid</th>
+                        <th>Race</th>
                     </tr>
                 </thead>
                 <tbody>
                     {racesDetails.map((race, i) =>
                         <tr key={i}>
+                            <td>{race.round}</td>
                             <td>{race.raceName}</td>
+                            <td>{race.Results[0].Constructor.name}</td>
                             <td>{race.Results[0].grid}</td>
                             <td>{race.Results[0].position}</td>
                         </tr>
