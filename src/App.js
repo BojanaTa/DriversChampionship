@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import Drivers from "./components/Drivers";
 import Teams from "./components/Teams";
 import Races from "./components/Races";
@@ -14,26 +14,25 @@ const App = () => {
 
                 <nav className="nav-bar">
                     <div className="img">
-                        <img src="/images/F1-logo.png" alt="Drivers Logo" />
-
+                        <img src="/images/F1-logo.png" alt="Link Logo" />
                     </div>
 
                     <ul>
                         <li>
-                            <Link to="/">Drivers</Link>
+                            <NavLink to="/" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Kaciga.png" alt="F1 helmet" />Drivers</NavLink>
                         </li>
                         <li>
-                            <Link to="/teams">Teams</Link>
+                            <NavLink to="/teams"><img src="/images/Teams.png" alt="F1 teams" />Teams</NavLink>
                         </li>
                         <li>
-                            <Link to="/races">Races</Link>
+                            <NavLink to="/races"><img src="/images/Races1.png" alt="F1 races" />Races</NavLink>
                         </li>
                     </ul>
                 </nav>
 
                 <Routes>
                     <Route path="/" element={<Drivers />} />
-                    <Route path="/details/:id" element={<DriversDetails />} />
+                    <Route path="/drivers/:id" element={<DriversDetails />} />
 
 
                     <Route path="/teams" element={<Teams />} />
