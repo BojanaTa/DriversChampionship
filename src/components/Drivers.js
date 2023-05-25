@@ -29,13 +29,11 @@ const Drivers = () => {
     }
 
     const handleClickDetails = (id, nationalityCode) => {
-        // console.log(id);
         const linkTo = `/drivers/${id}`;
-        navigate(linkTo, { state: { nationalityCode: nationalityCode} });
+        navigate(linkTo, { state: { nationalityCode: nationalityCode, flagsDetails: flagsDetails} });
     }
 
     const getFlag = (driverNationality) => {
-        //console.log("flagsDetails", flagsDetails);
         // console.log(driverDetails.nationality);
 
         let nationality = "";
@@ -49,7 +47,6 @@ const Drivers = () => {
         }
 
         const flag = flagsDetails.find(item => item.nationality === nationality);
-        // console.log("flag", flag);
         
         return flag.alpha_2_code;
     }
