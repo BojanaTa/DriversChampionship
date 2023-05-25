@@ -24,16 +24,6 @@ const Teams = () => {
   };
 
   const handleClickTeam = async (id) => {
-    // const url = `https://ergast.com/api/f1/2013/constructors/${id}/results.json`;
-    // try {
-    //   const response = await axios.get(url);
-    //   const raceData = response.data?.MRData?.RaceTable?.Races;
-    //   setSelectedTeam(name);
-    //   navigate(`/teams/${id}/${name}`, { state: { raceData } });
-    // } catch (error) {
-    //   console.error(`Error retrieving race results for ${name}:`, error);
-    // }
-
     navigate(`/teams/${id}`);
   };
 
@@ -55,7 +45,7 @@ const Teams = () => {
               >
                 {team.Constructor.name}
               </td>
-              <td>Details <Link to={team.Constructor.url}><img src="/images/link-black.png" color="red" alt="Wikipedia information about team" /></Link></td>
+              <td>Details <Link to={team.Constructor.url} target="_blank"><img src="/images/link-black.png" color="red" className="link-btn" alt="Wikipedia information about team" /></Link></td>
               <td>{team.points}</td>
             </tr>
           ))}
