@@ -3,6 +3,7 @@ import Drivers from "./components/Drivers";
 import Teams from "./components/Teams";
 import Races from "./components/Races";
 import DriversDetails from "./components/DriversDetails";
+import TeamsDetails from "./components/TeamsDetails";
 
 
 
@@ -36,6 +37,8 @@ const App = () => {
 
 
                     <Route path="/teams" element={<Teams />} />
+                    <Route path="/teams/:id" element={<TeamsDetails />} />
+
                    
 
                     <Route path="/races" element={<Races />} />
