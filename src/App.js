@@ -23,10 +23,10 @@ const App = () => {
                             <NavLink to="/" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Kaciga.png" alt="F1 helmet" />Drivers</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/teams"><img src="/images/Teams.png" alt="F1 teams" />Teams</NavLink>
+                            <NavLink to="/teams" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Teams.png" alt="F1 teams" />Teams</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/races"><img src="/images/Races1.png" alt="F1 races" />Races</NavLink>
+                            <NavLink to="/races" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Races1.png" alt="F1 races" />Races</NavLink>
                         </li>
                     </ul>
                 </nav>
