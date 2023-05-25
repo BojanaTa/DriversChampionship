@@ -32,10 +32,10 @@ const Races = () => {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Race Calendar</h1>
-            <div>Race Calendar - 2013</div>
-            <table>
+            <div className="header">Race Calendar - 2013</div>
+            <table className="custom-table">
                 <thead>
                     <tr>
                         <th>Round</th>
@@ -49,7 +49,7 @@ const Races = () => {
                      {races.map(race =>
                         <tr>
                             <td>{race.round}</td>
-                            <td onClick={() => handleClickRacesDetails()}>{race.raceName}</td>
+                            <td className="pointer" onClick={() => handleClickRacesDetails()}>{race.raceName}</td>
                             <td>{race.Circuit.circuitName}</td>
                             <td>{race.date}</td>
                             <td>{race.Results[0].Driver.familyName}</td>
