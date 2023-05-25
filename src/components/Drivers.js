@@ -66,7 +66,7 @@ const Drivers = () => {
                     {drivers.map(driver =>
                         <tr key={driver.Driver.driverId}>
                             <td>{driver.position}</td>
-                            <td onClick={() => handleClickDetails(driver.Driver.driverId, getFlag(driver.Driver.nationality))}>
+                            <td className="pointer" onClick={() => handleClickDetails(driver.Driver.driverId, getFlag(driver.Driver.nationality))}>
                                 <Flag country={getFlag(driver.Driver.nationality)} />
                                 {driver.Driver.givenName} {driver.Driver.familyName}
                             </td>

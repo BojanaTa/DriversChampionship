@@ -99,9 +99,9 @@ const DriversDetails = () => {
     }
 
     return (
-        <div>
+        <div className="wrap">
             <div className="driver-details">
-                <table>
+                <table className="driver">
                     <thead>
                         <tr>
                             <td><img src={`/images/${driverDetails.driverId}.jpg`} alt="Drivers Logo" /></td>
@@ -127,40 +127,43 @@ const DriversDetails = () => {
                         <tr>
                             <td>Biography: </td>
                             <td>
-                                <Link to={driverDetails.url}><img src="/images/link-white.png" alt="Drivers Logo" /></Link>
+                                <Link to={driverDetails.url}><img src="/images/link-white.png" alt="Drivers Logo" className="link-btn" /></Link>
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Round</th>
-                        <th>Grand Prix</th>
-                        <th>Team</th>
-                        <th>Grid</th>
-                        <th>Race</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {racesDetails.map((race, i) =>
-                        <tr key={i}>
-                            <td>{race.round}</td>
-                            <td>
-                                <Flag country={getFlag(race.Circuit.Location.country)} />
-                                {race.raceName}
-                            </td>
-                            <td>{race.Results[0].Constructor.name}</td>
-                            <td>{race.Results[0].grid}</td>
-                            <td style={{ backgroundColor: getColor(race.Results[0].position) }}>
-                                {race.Results[0].position}
-                            </td>
+            <div className="container">
+                <div className="header">Formula 1 2013 Results</div>
+                <table className="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Round</th>
+                            <th>Grand Prix</th>
+                            <th>Team</th>
+                            <th>Grid</th>
+                            <th>Race</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {racesDetails.map((race, i) =>
+                            <tr key={i}>
+                                <td>{race.round}</td>
+                                <td>
+                                    <Flag country={getFlag(race.Circuit.Location.country)} />
+                                    {race.raceName}
+                                </td>
+                                <td>{race.Results[0].Constructor.name}</td>
+                                <td>{race.Results[0].grid}</td>
+                                <td style={{ backgroundColor: getColor(race.Results[0].position) }}>
+                                    {race.Results[0].position}
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     );
