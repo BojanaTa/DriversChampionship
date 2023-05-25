@@ -55,7 +55,7 @@ const Teams = () => {
               >
                 {team.Constructor.name}
               </td>
-              <td>Details <Link to={team.Constructor.url}><img src="/images/link-white.png" color="red" alt="Wikipedia information about team" /></Link></td>
+              <td>Details <Link to={team.Constructor.url}><img src="/images/link-black.png" color="red" alt="Wikipedia information about team" /></Link></td>
               <td>{team.points}</td>
             </tr>
           ))}
