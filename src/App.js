@@ -18,7 +18,7 @@ const App = () => {
 
                     <ul>
                         <li>
-                            <NavLink to="/" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />Drivers</NavLink>
+                            <NavLink to="/drivers" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />Drivers</NavLink>
                         </li>
                         <li>
                             <NavLink to="/teams" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Teams1.png" alt="F1 teams" />Teams</NavLink>
@@ -30,7 +30,7 @@ const App = () => {
                 </nav>
 
                 <Routes>
-                    <Route path="/" element={<Drivers />} />
+                    <Route path="/drivers" element={<Drivers />} />
                     <Route path="/drivers/:id" element={<DriversDetails />} />
 
 
