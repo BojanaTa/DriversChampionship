@@ -10,17 +10,15 @@ import TeamsDetails from "./components/TeamsDetails";
 const App = () => {
     return (
         <div className="navigation">
-
             <Router>
-
                 <nav className="nav-bar">
                     <div className="img">
-                        <img src="/images/F1-logo.png" alt="Link Logo" />
+                        <NavLink to="/"><img src="/images/F1-logo2.png" alt="Link Logo" className="img"/></NavLink>
                     </div>
 
                     <ul>
                         <li>
-                            <NavLink to="/" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />  Drivers</NavLink>
+                            <NavLink to="/drivers" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />Drivers</NavLink>
                         </li>
                         <li>
                             <NavLink to="/teams" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Teams1.png" alt="F1 teams" />Teams</NavLink>
@@ -32,7 +30,7 @@ const App = () => {
                 </nav>
 
                 <Routes>
-                    <Route path="/" element={<Drivers />} />
+                    <Route path="/drivers" element={<Drivers />} />
                     <Route path="/drivers/:id" element={<DriversDetails />} />
 
 
