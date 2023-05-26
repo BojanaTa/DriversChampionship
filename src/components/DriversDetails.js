@@ -127,7 +127,7 @@ const DriversDetails = () => {
                         <tr>
                             <td>Biography: </td>
                             <td>
-                                <Link to={driverDetails.url}><img src="/images/link-white.png" alt="Drivers Logo" className="link-btn" /></Link>
+                                <Link to={driverDetails.url} target="_blank"><img src="/images/link-white.png" alt="Drivers Logo" className="link-btn" /></Link>
                             </td>
                         </tr>
 
