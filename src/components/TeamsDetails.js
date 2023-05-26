@@ -23,6 +23,34 @@ const TeamsDetails = () => {
     }
   };
 
+  const getColor = (position) => {
+    console.log(position);
+    switch (position) {
+      case "1":
+        // console.log("yellow");
+        return "gold";
+      case "2":
+        return "lightgray";
+      case "3":
+        return "lightsalmon";
+      case "4":
+        return "lightgreen";
+      case "5":
+        return "lightblue";
+      case "6":
+      case "7":
+      case "8":
+      case "9":
+      case "10":
+      case "11":
+      case "12":
+        return "palegreen";
+      default:
+        return "lavender";
+    }
+  }
+
+
   useEffect(() => {
     getRaceResults(id);
   }, [id]);
@@ -55,7 +83,7 @@ const TeamsDetails = () => {
                   <td>{race.round}</td>
                   <td>{race.raceName}</td>
                   {race.Results.map((result, index) => (
-                    <td key={index}>{result.position}</td>
+                    <td key={index} style={{ backgroundColor: getColor(result.position) }}>{result.position}</td>
                   ))}
                   <td>{race.Results[0].points}</td>
                 </tr>
@@ -69,5 +97,6 @@ const TeamsDetails = () => {
 };
 
 export default TeamsDetails;
+
 
 

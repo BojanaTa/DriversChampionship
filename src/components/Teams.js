@@ -36,7 +36,7 @@ const Teams = () => {
           {teams.map((team) => (
             <tr key={team.Constructor.constructorId}>
               <td>{team.position}</td>
-              <td
+              <td className="pointer"
                 onClick={() =>
                   handleClickTeam(
                     team.Constructor.constructorId
