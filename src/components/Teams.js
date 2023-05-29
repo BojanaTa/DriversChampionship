@@ -3,10 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Flag from "react-flagkit";
+import { FadeLoader } from "react-spinners";
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
   const [flagsDetails, setFlagsDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,7 @@ const Teams = () => {
       setTeams(
         response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
       );
+      setLoading(false);
     } catch (error) {
       console.error("Error retrieving teams:", error);
     }
@@ -58,6 +61,12 @@ const Teams = () => {
     const linkTo = `/teams/${id}`;
     navigate(linkTo);
   };
+
+  if (loading) {
+    return (
+      <FadeLoader size={75} color="red" />
+    );
+  }
 
   return (
     <div className="container">
