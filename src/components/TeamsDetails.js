@@ -105,6 +105,7 @@ const TeamsDetails = () => {
 
   useEffect(() => {
     getRaceResults(id);
+    // eslint-disable-next-line
   }, []);
 
   if (loading) {
