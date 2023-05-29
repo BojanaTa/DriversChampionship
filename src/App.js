@@ -4,6 +4,8 @@ import Teams from "./components/Teams";
 import Races from "./components/Races";
 import DriversDetails from "./components/DriversDetails";
 import TeamsDetails from "./components/TeamsDetails";
+import Home from "./components/Home";
+import Breadcrumbs from "./components/Breadcrumbs";
 
 
 
@@ -29,7 +31,10 @@ const App = () => {
                     </ul>
                 </nav>
 
+                <Breadcrumbs/>
+
                 <Routes>
+                    <Route path="/" element={<Home />} /> 
                     <Route path="/drivers" element={<Drivers />} />
                     <Route path="/drivers/:id" element={<DriversDetails />} />
 
@@ -40,6 +45,7 @@ const App = () => {
                    
 
                     <Route path="/races" element={<Races />} />
+                    
                 </Routes>
             </Router>
         </div>
