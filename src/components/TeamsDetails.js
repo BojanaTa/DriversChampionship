@@ -63,46 +63,21 @@ const TeamsDetails = () => {
     }
   };
 
-  const getFlag = (raceCountry) => {
-    let country = "";
-
-    if (raceCountry === "UK") {
-      country = "United Kingdom of Great Britain and Northern Ireland";
-    } else if (raceCountry === "Korea") {
-      country = "Korea (Republic of)";
-    } else if (raceCountry === "UAE") {
-      country = "Saudi Arabia";
-    } else if (raceCountry === "USA") {
-      country = "United States of America";
-    } else {
-      country = raceCountry;
+  
+  const getFlag = (country) => {
+    let modifiedCountry = country;
+  
+    if (country === "UK") {
+      modifiedCountry = "United Kingdom of Great Britain and Northern Ireland";
+    } else if (country === "Korea") {
+      modifiedCountry = "Korea (Republic of)";
     }
-
-    const flag = flagsDetails.find((item) => item.en_short_name === country);
-
-    return flag.alpha_2_code;
+  
+    const flag = flagsDetails.find((item) => item.en_short_name === modifiedCountry || item.nationality === modifiedCountry);
+  
+    return flag ? flag.alpha_2_code : "";
   };
-
-  const getFlag2 = (driverNationality) => {
-
-    let nationality = "";
-
-    if (driverNationality === "British") {
-      nationality = "British, UK";
-    } else if (driverNationality === "Dutch") {
-      nationality = "Dutch, Netherlandic";
-    } else {
-      nationality = driverNationality;
-    }
-
-    const flag = flagsDetails.find(item => item.nationality === nationality);
-
-    return flag.alpha_2_code;
-  }
-
-
-
-
+  
   useEffect(() => {
     getRaceResults(id);
     // eslint-disable-next-line
@@ -122,7 +97,7 @@ const TeamsDetails = () => {
             <tr>
               <td><img src={`/images/${raceDetails[0].Constructor.constructorId}.png`} alt="Teams Logo" /></td>
               <td>
-                <Flag country={getFlag2(raceDetails[0].Constructor.nationality)} />
+              <Flag country={getFlag(raceDetails[0].Constructor.nationality)} />
                 <p>{raceDetails[0].Constructor.name}</p>
               </td>
             </tr>
@@ -178,9 +153,7 @@ const TeamsDetails = () => {
               <tr key={index}>
                 <td>{race?.round}</td>
                 <td>
-                  <Flag
-                    country={getFlag(race.Circuit.Location.country)}
-                  />
+                <Flag country={getFlag(race.Circuit.Location.country)} />
                   {race.raceName}
                 </td>
                 {race.Results.map((result, index) => (
