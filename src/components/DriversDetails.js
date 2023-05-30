@@ -7,7 +7,6 @@ import { FadeLoader } from "react-spinners";
 
 const DriversDetails = () => {
     const [driverDetails, setDriverDetails] = useState({});
-    const [constructorDetails, setConstructorDetails] = useState({});
     const [racesDetails, setRacesDetails] = useState([]);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -15,9 +14,6 @@ const DriversDetails = () => {
     const location = useLocation();
     const nationalityCode = location.state.nationalityCode;
     const flagsDetails = location.state.flagsDetails;
-    // console.log("location", location.state);
-
-
 
     useEffect(() => {
         getDriverDetails();
@@ -25,17 +21,15 @@ const DriversDetails = () => {
     }, []);
 
     const getDriverDetails = async () => {
-        const url = `https://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
-        const urlRaces = `http://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        //const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
+        const url = `https://raw.githubusercontent.com/nkezic/f1/main/DriverDetails`;
+        //const urlRaces = `http://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/DriverRaces";
         const response = await axios.get(url);
         const responseRaces = await axios.get(urlRaces);
-        // console.log("Races", responseRaces.data);
-        setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Driver);
-        setConstructorDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Constructors[0]);
+        setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
         setRacesDetails(responseRaces.data.MRData.RaceTable.Races);
         setLoading(false);
-        //console.log("driver", response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Constructors[0].name);
-        // setLoading(false);
     }
 
     const getColor = (position) => {
@@ -104,30 +98,30 @@ const DriversDetails = () => {
                 <table className="driver">
                     <thead>
                         <tr>
-                            <td><img src={`/images/${driverDetails.driverId}.jpg`} alt="Drivers Logo" /></td>
+                            <td><img src={`/images/${driverDetails.Driver.driverId}.jpg`} alt="Drivers Logo" /></td>
                             <td> <Flag country={nationalityCode} />
-                                <p>{driverDetails.givenName}</p>
-                                <p>{driverDetails.familyName}</p>
+                                <p>{driverDetails.Driver.givenName}</p>
+                                <p>{driverDetails.Driver.familyName}</p>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Country: </td>
-                            <td>{driverDetails.nationality}</td>
+                            <td>{driverDetails.Driver.nationality}</td>
                         </tr>
                         <tr>
                             <td>Team: </td>
-                            <td>{constructorDetails.name}</td>
+                            <td>{driverDetails.Constructors[0].name}</td>
                         </tr>
                         <tr>
                             <td>Birth: </td>
-                            <td>{driverDetails.dateOfBirth}</td>
+                            <td>{driverDetails.Driver.dateOfBirth}</td>
                         </tr>
                         <tr>
                             <td>Biography: </td>
                             <td>
-                                <Link to={driverDetails.url} target="_blank"><img src="/images/link-white.png" alt="Drivers Logo" className="link-btn" /></Link>
+                                <Link to={driverDetails.Driver.url} target="_blank"><img src="/images/link-white.png" alt="Drivers Logo" className="link-btn" /></Link>
                             </td>
                         </tr>
 
@@ -147,8 +141,8 @@ const DriversDetails = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {racesDetails.map((race, i) =>
-                            <tr key={i}>
+                        {racesDetails.map(race =>
+                            <tr key={race.round}>
                                 <td>{race.round}</td>
                                 <td>
                                     <Flag country={getFlag(race.Circuit.Location.country)} />

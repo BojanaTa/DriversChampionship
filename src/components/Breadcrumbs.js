@@ -13,8 +13,10 @@ const Breadcrumbs = ({ routes }) => {
     }, []);
 
     const getData = async () => {
-        const urlDrivers = `http://ergast.com/api/f1/2013/driverStandings.json`;
-        const urlTeams = `http://ergast.com/api/f1/2013/constructorStandings.json`;
+        //const urlDrivers = `http://ergast.com/api/f1/2013/driverStandings.json`;
+        const urlDrivers = `https://raw.githubusercontent.com/nkezic/f1/main/DriverDetails`;
+        //const urlTeams = `http://ergast.com/api/f1/2013/constructorStandings.json`;
+        const urlTeams = `https://raw.githubusercontent.com/nkezic/f1/main/TeamDetails`;
         const responseDrivers = await axios.get(urlDrivers);
         const responseTeams = await axios.get(urlTeams);
         setDrivers(responseDrivers.data.MRData.StandingsTable.StandingsLists[0].DriverStandings);

@@ -15,11 +15,12 @@ const Drivers = () => {
     }, []);
 
     const getDrivers = async () => {
-        const url = "https://ergast.com/api/f1/2013/driverStandings.json";
+        // const url = `http://ergast.com/api/f1/2013/driverStandings.json`;
+        const url = `https://raw.githubusercontent.com/nkezic/f1/main/AllDrivers`;
         const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
         const response = await axios.get(url);
         const responseFlags = await axios.get(urlFlags);
-        console.log(response.data);
+        console.log("New response", response.data);
 
         setDrivers(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings);
         setFlagsDetails(responseFlags.data);
