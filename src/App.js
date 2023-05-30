@@ -7,9 +7,45 @@ import TeamsDetails from "./components/TeamsDetails";
 import Home from "./components/Home";
 import Breadcrumbs from "./components/Breadcrumbs";
 
-
-
 const App = () => {
+    const routes = [
+        {
+            path: "/",
+            element: <Home />,
+            breadcrumb: "F1 - Feeder",
+        },
+        {
+            path: "/drivers",
+            element: <Drivers />,
+            breadcrumb: "Drivers",
+        },
+        {
+            path: "/drivers/:id",
+            element: <DriversDetails />,
+            breadcrumb: {},
+        },
+        {
+            path: "/teams",
+            element: <Teams />,
+            breadcrumb: "Teams",
+        },
+        {
+            path: "/teams/:id",
+            element: <TeamsDetails />,
+            breadcrumb: {},
+        },
+        {
+            path: "/races",
+            element: <Races />,
+            breadcrumb: "Races",
+        },
+        // {
+        //     path: "/races/:id",
+        //     element: <RacessDetails />,
+        //     breadcrumb: {},
+        // },
+    ];
+
     return (
         <div className="navigation">
             <Router>
@@ -31,21 +67,21 @@ const App = () => {
                     </ul>
                 </nav>
 
-                <Breadcrumbs/>
+                <Breadcrumbs routes={routes} />
 
                 <Routes>
-                    <Route path="/" element={<Home />} /> 
+                    {routes.map(route =>
+                        <Route key={route.path} path={route.path} element={route.element} />
+                    )};
+                    {/* <Route path="/" element={<Home />} />
+
                     <Route path="/drivers" element={<Drivers />} />
                     <Route path="/drivers/:id" element={<DriversDetails />} />
-
 
                     <Route path="/teams" element={<Teams />} />
                     <Route path="/teams/:id" element={<TeamsDetails />} />
 
-                   
-
-                    <Route path="/races" element={<Races />} />
-                    
+                    <Route path="/races" element={<Races />} /> */}
                 </Routes>
             </Router>
         </div>
