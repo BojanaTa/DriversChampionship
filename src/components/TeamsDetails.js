@@ -14,8 +14,11 @@ const TeamsDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getRaceResults = async (id) => {
-    const urlTeams = `http://ergast.com/api/f1/2013/constructors/${id}/constructorStandings.json`;
-    const url = `https://ergast.com/api/f1/2013/constructors/${id}/results.json`;
+    const urlTeams = //`http://ergast.com/api/f1/2013/constructors/${id}/constructorStandings.json`;
+    "https://raw.githubusercontent.com/nkezic/f1/main/TeamDetails";
+    
+    const url = //`https://ergast.com/api/f1/2013/constructors/${id}/results.json`;
+    "https://raw.githubusercontent.com/nkezic/f1/main/TeamResults";
     const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
     try {
       const responseTeams = await axios.get(urlTeams);
