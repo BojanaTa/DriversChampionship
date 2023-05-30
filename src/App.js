@@ -51,29 +51,30 @@ const App = () => {
             <Router>
                 <nav className="nav-bar">
                     <div className="img">
-                        <NavLink to="/"><img src="/images/F1-logo2.png" alt="Link Logo" className="img"/></NavLink>
+                        <NavLink to="/"><img src="/images/F1-logo2.png" alt="Link Logo" className="img" /></NavLink>
                     </div>
 
                     <ul>
                         <li>
-                            <NavLink to="/drivers" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />Drivers</NavLink>
+                            <NavLink to="/drivers" className={({ isActive }) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />Drivers</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/teams" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/Teams1.png" alt="F1 teams" />Teams</NavLink>
+                            <NavLink to="/teams" className={({ isActive }) => (isActive ? "link-active" : "link")}><img src="/images/Teams1.png" alt="F1 teams" />Teams</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/races" className={({isActive}) => (isActive ? "link-active" : "link")}><img src="/images/racing-flags2.png" alt="F1 races" />Races</NavLink>
+                            <NavLink to="/races" className={({ isActive }) => (isActive ? "link-active" : "link")}><img src="/images/racing-flags2.png" alt="F1 races" />Races</NavLink>
                         </li>
                     </ul>
                 </nav>
 
-                <Breadcrumbs routes={routes} />
+                <div className="nav-wrap">
+                    <Breadcrumbs routes={routes} />
 
-                <Routes>
-                    {routes.map(route =>
-                        <Route key={route.path} path={route.path} element={route.element} />
-                    )};
-                    {/* <Route path="/" element={<Home />} />
+                    <Routes>
+                        {routes.map(route =>
+                            <Route key={route.path} path={route.path} element={route.element} />
+                        )};
+                        {/* <Route path="/" element={<Home />} />
 
                     <Route path="/drivers" element={<Drivers />} />
                     <Route path="/drivers/:id" element={<DriversDetails />} />
@@ -82,7 +83,8 @@ const App = () => {
                     <Route path="/teams/:id" element={<TeamsDetails />} />
 
                     <Route path="/races" element={<Races />} /> */}
-                </Routes>
+                    </Routes>
+                </div>
             </Router>
         </div>
     );

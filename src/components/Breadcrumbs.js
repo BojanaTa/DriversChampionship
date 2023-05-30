@@ -45,7 +45,7 @@ const Breadcrumbs = ({ routes }) => {
     }
 
     return (
-        <div>
+        <div className="breadcrumbs">
             {breadcrumbs.map(({ match, breadcrumb, location }) => 
                 <Link key={match.pathname} to={match.pathname} state={location.state}>
                     <input type="button" value={getBreadcrumbText(breadcrumb)} />
