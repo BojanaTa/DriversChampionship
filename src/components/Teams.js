@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Flag from "react-flagkit";
-import { FadeLoader } from "react-spinners";
+import Loader from "./Loader";
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
@@ -13,33 +13,23 @@ const Teams = () => {
 
   useEffect(() => {
     getTeams();
-    getFlagsDetails();
   }, []);
 
   const getTeams = async () => {
     const url = //"http://ergast.com/api/f1/2013/constructorStandings.json";
     "https://raw.githubusercontent.com/nkezic/f1/main/AllTeams";
+    const urlFlags =
+    "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
+      const responseFlags = await axios.get(urlFlags);
       setTeams(
         response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
       );
+      setFlagsDetails(responseFlags.data);
       setLoading(false);
     } catch (error) {
       console.error("Error retrieving teams:", error);
-    }
-  };
-
-  const getFlagsDetails = async () => {
-    const urlFlags =
-      "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
-    try {
-      const responseFlags = await axios.get(urlFlags);
-      console.log(responseFlags.data)
-      setFlagsDetails(responseFlags.data);
-    } catch (error) {
-      console.error("Error retrieving flags details:", error);
     }
   };
 
@@ -65,7 +55,7 @@ const Teams = () => {
 
   if (loading) {
     return (
-      <FadeLoader size={75} color="red" />
+      <Loader />
     );
   }
 
