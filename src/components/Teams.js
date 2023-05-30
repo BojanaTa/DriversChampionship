@@ -21,7 +21,7 @@ const Teams = () => {
     "https://raw.githubusercontent.com/nkezic/f1/main/AllTeams";
     try {
       const response = await axios.get(url);
-      console.log(response.data);
+      //console.log(response.data);
       setTeams(
         response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
       );
@@ -36,7 +36,7 @@ const Teams = () => {
       "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
     try {
       const responseFlags = await axios.get(urlFlags);
-      console.log(responseFlags.data)
+      //console.log(responseFlags.data)
       setFlagsDetails(responseFlags.data);
     } catch (error) {
       console.error("Error retrieving flags details:", error);

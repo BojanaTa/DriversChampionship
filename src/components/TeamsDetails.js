@@ -25,10 +25,10 @@ const TeamsDetails = () => {
       const response = await axios.get(url);
       const responseFlags = await axios.get(urlFlags);
       const teams = responseTeams.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
-      console.log("Teams", teams);
+      //console.log("Teams", teams);
       setTeams(teams);
       const raceData = response.data.MRData.RaceTable.Races;
-      console.log("Race Data:", raceData);
+      //console.log("Race Data:", raceData);
       setRaces(raceData);
       setRaceDetails(response.data.MRData.RaceTable.Races[0].Results);
       setFlagsDetails(responseFlags.data);
@@ -41,7 +41,7 @@ const TeamsDetails = () => {
   };
 
   const getColor = (position) => {
-    console.log(position);
+    //console.log(position);
     switch (position) {
       case "1":
         return "gold";
@@ -117,8 +117,8 @@ const TeamsDetails = () => {
     );
   }
 
-  console.log("Race Details:", raceDetails);
-  console.log("isLoading:", isLoading);
+  //console.log("Race Details:", raceDetails);
+  //console.log("isLoading:", isLoading);
 
   return (
     <div>
