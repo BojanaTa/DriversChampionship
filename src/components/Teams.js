@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Flag from "react-flagkit";
-import { FadeLoader } from "react-spinners";
+import Loader from "./Loader";
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
@@ -65,7 +65,7 @@ const Teams = () => {
 
   if (loading) {
     return (
-      <FadeLoader size={75} color="red" />
+      <Loader />
     );
   }
 

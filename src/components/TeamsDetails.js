@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Flag from "react-flagkit";
-import { FadeLoader } from "react-spinners";
+import Loader from "./Loader";
 
 const TeamsDetails = () => {
   const { id } = useParams();
@@ -113,7 +113,7 @@ const TeamsDetails = () => {
 
   if (loading) {
     return (
-        <FadeLoader size={75} color="red" />
+        <Loader />
     );
   }
 
