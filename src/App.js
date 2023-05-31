@@ -114,7 +114,7 @@ const App = () => {
                                 flagsDetails: flagsDetails
                             }}>
 
-                        <div className="</div>">
+                        <div className="search-nav">
                             <Breadcrumbs routes={routes} />
                             <Search />
                         </div>
