@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Flag from "react-flagkit";
 import { FadeLoader } from "react-spinners";
+import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
+import { DataContext } from "../App";
 
 const DriversDetails = () => {
     const [driverDetails, setDriverDetails] = useState({});
@@ -11,10 +13,10 @@ const DriversDetails = () => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const id = params.id;
-    const location = useLocation();
-    const nationalityCode = location.state.nationalityCode;
-    const flagsDetails = location.state.flagsDetails;
+    const dataContext = useContext(DataContext);
 
+    // console.log("DriversDetails dataContext", dataContext);
+   
     useEffect(() => {
         getDriverDetails();
         // eslint-disable-next-line
@@ -59,33 +61,6 @@ const DriversDetails = () => {
         }
     }
 
-    const getFlag = (raceCountry) => {
-        let country = "";
-
-        if (raceCountry === "UK") {
-            country = "United Kingdom of Great Britain and Northern Ireland";
-        } else if (raceCountry === "Korea") {
-            country = "Korea (Republic of)";
-        } else if (raceCountry === "UAE") {
-            country = "Saudi Arabia";
-        } else if (raceCountry === "USA") {
-            country = "United States of America";
-        } else {
-            country = raceCountry;
-        }
-
-        const flag = flagsDetails.find(item => item.en_short_name === country);
-
-        // console.log(flag);
-        // if (flag === undefined){
-        //     console.log(country);
-        // }
-
-        return flag.alpha_2_code;
-    }
-
-
-
     if (loading) {
         return (
             <FadeLoader size={75} color="red" />
@@ -99,7 +74,7 @@ const DriversDetails = () => {
                     <thead>
                         <tr>
                             <td><img src={`/images/${driverDetails.Driver.driverId}.jpg`} alt="Drivers Logo" /></td>
-                            <td> <Flag country={nationalityCode} />
+                            <td> <Flag country={getFlagByNationality(driverDetails.Driver.nationality, dataContext.flagsDetails)} />
                                 <p>{driverDetails.Driver.givenName}</p>
                                 <p>{driverDetails.Driver.familyName}</p>
                             </td>
@@ -145,7 +120,7 @@ const DriversDetails = () => {
                             <tr key={race.round}>
                                 <td>{race.round}</td>
                                 <td>
-                                    <Flag country={getFlag(race.Circuit.Location.country)} />
+                                    <Flag country={getFlagByCountry(race.Circuit.Location.country, dataContext.flagsDetails)} />
                                     {race.raceName}
                                 </td>
                                 <td>{race.Results[0].Constructor.name}</td>
