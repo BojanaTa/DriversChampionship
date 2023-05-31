@@ -7,6 +7,7 @@ import DriversDetails from "./components/DriversDetails";
 import TeamsDetails from "./components/TeamsDetails";
 import Home from "./components/Home";
 import Breadcrumbs from "./components/Breadcrumbs";
+import RacesDetails from "./components/RacesDetails";
 import axios from "axios";
 import Search from "./components/Search";
 
