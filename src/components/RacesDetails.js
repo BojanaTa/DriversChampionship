@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-// import Flag from "react-flagkit";
+import Flag from "react-flagkit";
 import Loader from "./Loader";
+import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
+import { DataContext } from "../App";
+
 
 
 const RacesDetails = () => {
@@ -12,6 +15,8 @@ const RacesDetails = () => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const id = params.id;
+    const dataContext = useContext(DataContext);
+
 
 
 
@@ -83,7 +88,11 @@ const RacesDetails = () => {
                     <table className="driver">
                         <thead>
                             <tr>
-                                <td>{qualifiersResults.raceName}</td>
+                                <td>
+                                <Flag country={getFlagByCountry(qualifiersResults.Circuit.Location.country, dataContext.flagsDetails)} />
+
+                                    <p>{qualifiersResults.raceName}</p>
+                                </td>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,8 +134,9 @@ const RacesDetails = () => {
                             {qualifiersResults.QualifyingResults.map((result, i) =>
                                 <tr key={i}>
                                     <td>{result.position}</td>
-                                    <td>
-                                        {result.Driver.familyName}
+                                   <td> 
+                                    <Flag country={getFlagByNationality(result.Driver.nationality, dataContext.flagsDetails)} />
+                                      {result.Driver.familyName}
                                     </td>
                                     <td>{result.Constructor.name}</td>
                                     <td></td>
@@ -135,7 +145,7 @@ const RacesDetails = () => {
                             )}
                         </tbody>
                     </table>
-
+                    <div className="footer"></div>
                 </div>
 
                 <div className="container">
@@ -165,6 +175,7 @@ const RacesDetails = () => {
                         </tbody>
 
                     </table>
+                    <div className="footer"></div>
                 </div>
             </div>
         );
