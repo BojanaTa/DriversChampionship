@@ -23,10 +23,10 @@ const DriversDetails = () => {
     }, []);
 
     const getDriverDetails = async () => {
-        //const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
-        const url = `https://raw.githubusercontent.com/nkezic/f1/main/DriverDetails`;
-        //const urlRaces = `http://ergast.com/api/f1/2013/drivers/${id}/results.json`;
-        const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/DriverRaces";
+        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
+        // const url = `https://raw.githubusercontent.com/nkezic/f1/main/DriverDetails`;
+        const urlRaces = `http://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        // const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/DriverRaces";
         const response = await axios.get(url);
         const responseRaces = await axios.get(urlRaces);
         setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);

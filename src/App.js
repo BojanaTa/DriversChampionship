@@ -44,11 +44,11 @@ const App = () => {
             element: <Races />,
             breadcrumb: "Races",
         },
-        // {
-        //     path: "/races/:id",
-        //     element: <RacessDetails />,
-        //     breadcrumb: () => {},
-        // },
+        {
+            path: "/races/:id",
+            element: <RacesDetails />,
+            breadcrumb: () => { },
+        },
     ];
 
     const [drivers, setDrivers] = useState([]);
@@ -61,12 +61,12 @@ const App = () => {
     }, []);
 
     const getData = async () => {
-        // const urlDrivers = `http://ergast.com/api/f1/2013/driverStandings.json`;
-        const urlDrivers = `https://raw.githubusercontent.com/nkezic/f1/main/AllDrivers`;
-        // const urlTeams = "http://ergast.com/api/f1/2013/constructorStandings.json";
-        const urlTeams = "https://raw.githubusercontent.com/nkezic/f1/main/AllTeams";
-        // const urlRaces = "https://ergast.com/api/f1/2013/results/1.json";
-        const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/AllRaces";
+        const urlDrivers = `http://ergast.com/api/f1/2013/driverStandings.json`;
+        // const urlDrivers = `https://raw.githubusercontent.com/nkezic/f1/main/AllDrivers`;
+        const urlTeams = "http://ergast.com/api/f1/2013/constructorStandings.json";
+        // const urlTeams = "https://raw.githubusercontent.com/nkezic/f1/main/AllTeams";
+        const urlRaces = "https://ergast.com/api/f1/2013/results/1.json";
+        // const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/AllRaces";
         const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
         const responseDrivers = await axios.get(urlDrivers);
         const responseTeams = await axios.get(urlTeams);
@@ -112,9 +112,11 @@ const App = () => {
                                 races: races,
                                 flagsDetails: flagsDetails
                             }}>
-                        <Breadcrumbs routes={routes} />
 
-                        <Search />
+                        <div className="</div>">
+                            <Breadcrumbs routes={routes} />
+                            <Search />
+                        </div>
 
                         <Routes>
                             {routes.map(route =>
