@@ -1,36 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Flag from "react-flagkit";
+import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
+import { DataContext } from "../App";
 import Loader from "./Loader";
 
 const TeamsDetails = () => {
   const { id } = useParams();
   const [teams, setTeams] = useState([]);
-  const [races, setRaces] = useState([]);
-  const [raceDetails, setRaceDetails] = useState([]);
-  const [flagsDetails, setFlagsDetails] = useState([]);
+  const [raceData, setRaceData] = useState([]);
+  const dataContext = useContext(DataContext);
   const [loading, setLoading] = useState(true);
 
   const getRaceResults = async (id) => {
     const urlTeams = `http://ergast.com/api/f1/2013/constructors/${id}/constructorStandings.json`;
-    //"https://raw.githubusercontent.com/nkezic/f1/main/TeamDetails";
-
     const url = `https://ergast.com/api/f1/2013/constructors/${id}/results.json`;
-    //"https://raw.githubusercontent.com/nkezic/f1/main/TeamResults";
-    const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
     try {
       const responseTeams = await axios.get(urlTeams);
       const response = await axios.get(url);
-      const responseFlags = await axios.get(urlFlags);
-      const teams = responseTeams.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
-      //console.log("Teams", teams);
-      setTeams(teams);
-      const raceData = response.data.MRData.RaceTable.Races;
-      //console.log("Race Data:", raceData);
-      setRaces(raceData);
-      setRaceDetails(response.data.MRData.RaceTable.Races[0].Results);
-      setFlagsDetails(responseFlags.data);
+      setTeams(responseTeams.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
+      setRaceData(response.data.MRData.RaceTable.Races);
       setLoading(false);
     } catch (error) {
       console.error(`Error retrieving race results:`, error);
@@ -63,30 +53,13 @@ const TeamsDetails = () => {
     }
   };
 
-
-  const getFlag = (country) => {
-    let modifiedCountry = country;
-
-    if (country === "UK") {
-      modifiedCountry = "United Kingdom of Great Britain and Northern Ireland";
-    } else if (country === "Korea") {
-      modifiedCountry = "Korea (Republic of)";
-    }
-
-    const flag = flagsDetails.find((item) => item.en_short_name === modifiedCountry || item.nationality === modifiedCountry);
-
-    return flag ? flag.alpha_2_code : "";
-  };
-
   useEffect(() => {
     getRaceResults(id);
     // eslint-disable-next-line
   }, []);
 
   if (loading) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   return (
@@ -95,39 +68,34 @@ const TeamsDetails = () => {
         <table className="driver">
           <thead>
             <tr>
-              <td><img src={`/images/${raceDetails[0].Constructor.constructorId}.png`} alt="Teams Logo" /></td>
               <td>
-                <Flag country={getFlag(raceDetails[0].Constructor.nationality)} />
-                <p>{raceDetails[0].Constructor.name}</p>
+                <img src={`/images/${raceData[0].Results[0].Constructor.constructorId}.png`} alt="Teams Logo" />
+              </td>
+              <td>
+                <Flag country={getFlagByNationality(raceData[0].Results[0].Constructor.nationality, dataContext.flagsDetails)} />
+                <p>{raceData[0].Results[0].Constructor.name}</p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Country: </td>
-              <td>{raceDetails[0].Driver.nationality}</td>
+              <td>{raceData[0].Results[0].Driver.nationality}</td>
             </tr>
             <tr>
               <td>Position: </td>
-              <td>{raceDetails[0].position}</td>
+              <td>{raceData[0].Results[0].position}</td>
             </tr>
             <tr>
               <td>Points: </td>
-              <td>{raceDetails[0].points}</td>
+              <td>{raceData[0].Results[0].points}</td>
             </tr>
             <tr>
               <td>History: </td>
               <td>
                 {teams.length > 0 && (
-                  <Link
-                    to={teams[0].Constructor.url}
-                    target="_blank"
-                  >
-                    <img
-                      src="/images/link-white.png"
-                      alt="Teams Logo"
-                      className="link-btn"
-                    />
+                  <Link to={teams[0].Constructor.url} target="_blank">
+                    <img src="/images/link-white.png" alt="Teams Logo" className="link-btn" />
                   </Link>
                 )}
               </td>
@@ -142,18 +110,18 @@ const TeamsDetails = () => {
             <tr>
               <th>Round</th>
               <th>Grand Prix</th>
-              {raceDetails.map((result, index) => (
+              {raceData[0].Results.map((result, index) => (
                 <th key={index}>{result.Driver.familyName}</th>
               ))}
               <th>Points</th>
             </tr>
           </thead>
           <tbody>
-            {races.map((race, index) => (
+            {raceData.map((race, index) => (
               <tr key={index}>
-                <td>{race?.round}</td>
+                <td>{race.round}</td>
                 <td>
-                  <Flag country={getFlag(race.Circuit.Location.country)} />
+                  <Flag country={getFlagByCountry(race.Circuit.Location.country, dataContext.flagsDetails)} />
                   {race.raceName}
                 </td>
                 {race.Results.map((result, index) => (
@@ -167,18 +135,16 @@ const TeamsDetails = () => {
                   </td>
                 ))}
                 <td>
-                  {parseInt(race.Results[0].points) +
-                    parseInt(race.Results[1].points)}
+                  {parseInt(race.Results[0].points || 0) + parseInt(race.Results[1].points || 0)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div className="footer"></div>
       </div>
     </div>
   );
 };
 
 export default TeamsDetails;
-
-

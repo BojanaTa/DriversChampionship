@@ -46,6 +46,7 @@ const Teams = () => {
           ))}
         </tbody>
       </table>
+      <div className="footer"></div>
     </div>
   );
 };
