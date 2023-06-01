@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Flag from "react-flagkit";
-import { DataContext } from "../App";
+import { DataContext } from "../contexts/GetDataContext";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
 
 const Races = () => {
     const navigate = useNavigate();
-    const dataContext = useContext(DataContext);
+    const dataContext = useContext(DataContext).contextValue;
     console.log("Races dataContext", dataContext);
 
     const handleClickRacesDetails = (id) => {

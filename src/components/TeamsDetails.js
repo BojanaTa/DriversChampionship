@@ -3,14 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Flag from "react-flagkit";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
-import { DataContext } from "../App";
 import Loader from "./Loader";
+import { DataContext } from "../contexts/GetDataContext";
 
 const TeamsDetails = () => {
   const { id } = useParams();
   const [teams, setTeams] = useState([]);
   const [raceData, setRaceData] = useState([]);
-  const dataContext = useContext(DataContext);
+  const dataContext = useContext(DataContext).contextValue;
   const [loading, setLoading] = useState(true);
 
   const getRaceResults = async (id) => {

@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Flag from "react-flagkit";
 import Loader from "./Loader";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
-import { DataContext } from "../App";
+import { DataContext } from "../contexts/GetDataContext";
 
 const RacesDetails = () => {
     const [qualifiersResults, setQualifiersResults] = useState([]);
@@ -12,7 +12,7 @@ const RacesDetails = () => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const id = params.id;
-    const dataContext = useContext(DataContext);
+    const dataContext = useContext(DataContext).contextValue;
 
     const getResults = async () => {
         const urlQualifiers = `https://ergast.com/api/f1/2013/${id}/qualifying.json`;
