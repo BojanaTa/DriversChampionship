@@ -7,10 +7,7 @@ import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
 const Races = () => {
     const navigate = useNavigate();
     const dataContext = useContext(DataContext);
-
     console.log("Races dataContext", dataContext);
-
-   
 
     const handleClickRacesDetails = (id) => {
         const linkTo = `/races/${id}`;
@@ -52,7 +49,6 @@ const Races = () => {
 
                 </tbody>
             </table>
-            <div className="footer"></div>
         </div>
     );
 }

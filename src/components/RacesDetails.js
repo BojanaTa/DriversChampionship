@@ -6,37 +6,24 @@ import Loader from "./Loader";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
 import { DataContext } from "../App";
 
-
-
 const RacesDetails = () => {
     const [qualifiersResults, setQualifiersResults] = useState([]);
     const [results, setResults] = useState([]);
-    //const [flagsDetails, setFlagsDetails] = useState([]);
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const id = params.id;
     const dataContext = useContext(DataContext);
 
-
-
-
     const getResults = async () => {
         const urlQualifiers = `https://ergast.com/api/f1/2013/${id}/qualifying.json`;
-        // const urlQualifiers = `https://raw.githubusercontent.com/nkezic/f1/main/Qualifiers`;
         const urlResults = `https://ergast.com/api/f1/2013/${id}/results.json`;
-        // const urlResults = `https://raw.githubusercontent.com/nkezic/f1/main/Qualifiers`;
-        const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
         try {
             const responseQualifiers = await axios.get(urlQualifiers);
             const responseResults = await axios.get(urlResults);
-            const responseFlags = await axios.get(urlFlags);
             console.log("qualifiers", responseQualifiers.data.MRData.RaceTable.Races[0]);
             console.log("results", responseResults.data.MRData.RaceTable.Races[0].Results);
-
-
             setQualifiersResults(responseQualifiers.data.MRData.RaceTable.Races[0]);
             setResults(responseResults.data.MRData.RaceTable.Races[0].Results);
-            //setFlagsDetails(responseFlags.data);
             setLoading(false);
         } catch (error) {
             console.error(`Error retrieving race results:`, error);
@@ -70,21 +57,14 @@ const RacesDetails = () => {
     };
 
     const getBestTime = (result) => {
-        if (result.Q3) {
-            return result.Q3;
-        } else if (result.Q2) {
-            return result.Q2;
-        } else if (result.Q1) {
-            return result.Q1;
-        } else {
-            return "";
-        }
-    };
+        const times = [result.Q3, result.Q2, result.Q1]
+        times.sort();
+        return times.length > 0 ? times[0] : "";
+    }
+
 
     useEffect(() => {
         getResults();
-        //eslint-disable-next-line
-
     }, []);
 
     if (loading) {
@@ -92,7 +72,6 @@ const RacesDetails = () => {
             <Loader />
         );
     }
-
 
     return (
         <div className="wrap">
@@ -139,7 +118,6 @@ const RacesDetails = () => {
                             <td>Driver</td>
                             <td>Team</td>
                             <td>Best Time</td>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -157,7 +135,6 @@ const RacesDetails = () => {
                         )}
                     </tbody>
                 </table>
-                <div className="footer"></div>
             </div>
 
             <div className="container">
@@ -182,14 +159,13 @@ const RacesDetails = () => {
                                 </td>
                                 <td>{result.Constructor.name}</td>
                                 <td>{result.Time !== undefined ? result.Time.time : ""}</td>
-                                <td style={{backgroundColor: getColor(result.points)}}>
-                                        {result.points}
+                                <td style={{ backgroundColor: getColor(result.points) }}>
+                                    {result.points}
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
-                <div className="footer"></div>
             </div>
         </div>
     );
