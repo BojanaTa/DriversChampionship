@@ -48,8 +48,7 @@ const Races = () => {
                             <td>
                             <Flag
                                     country={getFlagByNationality(race.Results[0].Driver.nationality, dataContext.flagsDetails)} />
-                                {race.Results[0].Driver.givenName}
-                                {race.Results[0].Driver.familyName}
+                                {race.Results[0].Driver.givenName} {race.Results[0].Driver.familyName}
                             </td>
                         </tr>
                     )}
