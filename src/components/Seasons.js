@@ -1,21 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import DropDown from "react-dropdown";
 
 export const SeasonContext = createContext();
 
 const Seasons = () => {
     const [seasons, setSeasons] = useState([]);
     const seasonContext = useContext(SeasonContext);
+    const currentYear = new Date().getFullYear().toString();
+    
 
     useEffect(() => {
         getSeasons();
+        // eslint-disable-next-line
     }, []);
 
     const getSeasons = async () => {
         try {
             const tempSeasons = [];
 
-            for (let i = 1950; i <= new Date().getFullYear(); i++) {
+            for (let i = currentYear; i >= 1950; i--) {
                 tempSeasons.push(i.toString());
             }
 
@@ -25,17 +27,27 @@ const Seasons = () => {
         }
     }
 
-    const handleClickSeason = (season) => {
-        seasonContext.setSeasonCallback(season.value);
+    const handleClickSeason = (e) => {
+        if(seasons.includes(e.target.value)) {
+            seasonContext.setSeasonCallback(e.target.value);
+        }
     }
 
     return (
         <div>
-            <DropDown
-                options={seasons}
-                onChange={handleClickSeason}
-                value={seasonContext.season}
-                placeholder="Select season" />
+            <p>Select season: </p>
+            <input
+                className="input-seasons"
+                type="number"
+                list="seasons"
+                placeholder={seasonContext.season}
+                min="1950"
+                max={currentYear}
+                onChange={handleClickSeason} />
+            <datalist id="seasons">
+                {seasons.map(season => 
+                    <option key={season} value={season}></option>)}
+            </datalist>
         </div>
     );
 }

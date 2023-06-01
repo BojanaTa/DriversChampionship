@@ -9,7 +9,7 @@ import { SeasonContext } from "./components/Seasons";
 
 const App = () => {
     const [contextValue, setContextValue] = useState({});
-    const [season, setSeason] = useState("2013");
+    const [season, setSeason] = useState(new Date().getFullYear().toString());
 
     const setContextValueCallback = (value) => {
         setContextValue(value);

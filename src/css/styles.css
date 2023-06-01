@@ -297,6 +297,16 @@ h3 {
     border-radius: 5px;
 }
 
+.input-seasons {
+    width: 150px;
+}
+
+.input-seasons::-webkit-outer-spin-button,
+.input-seasons::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 @media screen and (max-width: 950px) {
     .nav-bar li {
         text-align: center;
