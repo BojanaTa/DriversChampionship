@@ -24,12 +24,14 @@ const GetDataContext = (props) => {
             const responseRaces = await axios.get(urlRaces);
             const responseFlags = await axios.get(urlFlags);
 
+            const teams = responseTeams.data.MRData.StandingsTable.StandingsLists[0];
+
             console.log("Data loading end");
 
             props.callback(
                 {
                     drivers: responseDrivers.data.MRData.StandingsTable.StandingsLists[0].DriverStandings,
-                    teams: responseTeams.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
+                    teams: teams === undefined ? [] : teams.ConstructorStandings,
                     races: responseRaces.data.MRData.RaceTable.Races,
                     flagsDetails: responseFlags.data,
                 }

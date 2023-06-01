@@ -20,8 +20,16 @@ const Teams = () => {
   if (dataContext.teams === undefined) {
     return (
       <Loader />
+    );
+  }
+
+  if(dataContext.teams.length === 0) {
+    return (
+      <div className="container">
+          <h1>{`Teams are not available for year ${season}`}</h1>
+      </div>
   );
-}
+  }
 
   return (
     <div className="container">
