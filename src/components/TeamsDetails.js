@@ -5,6 +5,8 @@ import Flag from "react-flagkit";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
 import Loader from "./Loader";
 import { DataContext } from "../contexts/GetDataContext";
+import { SeasonContext } from "./Seasons";
+import { getColor } from "../helpers/Helper";
 
 const TeamsDetails = () => {
   const { id } = useParams();
@@ -12,10 +14,11 @@ const TeamsDetails = () => {
   const [raceData, setRaceData] = useState([]);
   const dataContext = useContext(DataContext).contextValue;
   const [loading, setLoading] = useState(true);
+  const season = useContext(SeasonContext).season;
 
   const getRaceResults = async (id) => {
-    const urlTeams = `http://ergast.com/api/f1/2013/constructors/${id}/constructorStandings.json`;
-    const url = `https://ergast.com/api/f1/2013/constructors/${id}/results.json`;
+    const urlTeams = `http://ergast.com/api/f1/${season}/constructors/${id}/constructorStandings.json`;
+    const url = `https://ergast.com/api/f1/${season}/constructors/${id}/results.json`;
     try {
       const responseTeams = await axios.get(urlTeams);
       const response = await axios.get(url);
@@ -28,35 +31,10 @@ const TeamsDetails = () => {
     }
   };
 
-  const getColor = (position) => {
-    switch (position) {
-      case "1":
-        return "gold";
-      case "2":
-        return "lightgray";
-      case "3":
-        return "lightsalmon";
-      case "4":
-        return "lightgreen";
-      case "5":
-        return "lightblue";
-      case "6":
-      case "7":
-      case "8":
-      case "9":
-      case "10":
-      case "11":
-      case "12":
-        return "palegreen";
-      default:
-        return "lavender";
-    }
-  };
-
   useEffect(() => {
     getRaceResults(id);
     // eslint-disable-next-line
-  }, []);
+  }, [raceData]);
 
   if (loading) {
     return <Loader />;
@@ -104,7 +82,7 @@ const TeamsDetails = () => {
         </table>
       </div>
       <div className="container">
-        <div className="header">Race Results for</div>
+        <div className="header">{`Formula 1 ${season} Results`}</div>
         <table className="custom-table">
           <thead>
             <tr>

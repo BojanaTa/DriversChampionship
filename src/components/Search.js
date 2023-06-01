@@ -64,7 +64,6 @@ const Search = () => {
     }
 
     const handleClickSearchItem = (id, type) => {
-        console.log("Search click id", id);
         const linkTo = `/${type}/${id}`;
         setFilteredData([]);
         setSearchText("");

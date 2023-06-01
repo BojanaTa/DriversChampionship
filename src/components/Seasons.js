@@ -14,14 +14,19 @@ const Seasons = () => {
     }, []);
 
     const getSeasons = async () => {
-        const urlSeasons = "https://ergast.com/api/f1/seasons.json";
-        const responseSeasons = await axios.get(urlSeasons);
+        try {
+            const urlSeasons = "https://ergast.com/api/f1/seasons.json";
+            const responseSeasons = await axios.get(urlSeasons);
 
-        const tempSeasons = [];
-        responseSeasons.data.MRData.SeasonTable.Seasons.map(season => 
-            tempSeasons.push(season.season));
-        setSeasons(tempSeasons);
-        setLoading(false);
+            const tempSeasons = [];
+            responseSeasons.data.MRData.SeasonTable.Seasons.map(season =>
+                tempSeasons.push(season.season));
+            setSeasons(tempSeasons);
+            setLoading(false);
+        } catch (error) {
+            console.error(`Error retrieving race results:`, error);
+            setLoading(false);
+        }
     }
 
     const handleClickSeason = (season) => {

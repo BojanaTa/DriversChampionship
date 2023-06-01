@@ -2,11 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Flag from "react-flagkit";
-import { FadeLoader } from "react-spinners";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
 import { DataContext } from "../contexts/GetDataContext";
 import { getColor } from "../helpers/Helper";
 import { SeasonContext } from "./Seasons";
+import Loader from "./Loader";
 
 const DriversDetails = () => {
     const [driverDetails, setDriverDetails] = useState({});
@@ -15,7 +15,7 @@ const DriversDetails = () => {
     const params = useParams();
     const id = params.id;
     const dataContext = useContext(DataContext).contextValue;
-    const selectedSeason = useContext(SeasonContext).season;
+    const season = useContext(SeasonContext).season;
    
     useEffect(() => {
         getDriverDetails();
@@ -23,20 +23,23 @@ const DriversDetails = () => {
     }, [driverDetails]);
 
     const getDriverDetails = async () => {
-        const url = `http://ergast.com/api/f1/${selectedSeason}/drivers/${id}/driverStandings.json`;
-        // const url = `https://raw.githubusercontent.com/nkezic/f1/main/DriverDetails`;
-        const urlRaces = `http://ergast.com/api/f1/${selectedSeason}/drivers/${id}/results.json`;
-        // const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/DriverRaces";
-        const response = await axios.get(url);
-        const responseRaces = await axios.get(urlRaces);
-        setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
-        setRacesDetails(responseRaces.data.MRData.RaceTable.Races);
-        setLoading(false);
+        try{
+            const url = `http://ergast.com/api/f1/${season}/drivers/${id}/driverStandings.json`;
+            const urlRaces = `http://ergast.com/api/f1/${season}/drivers/${id}/results.json`;
+            const response = await axios.get(url);
+            const responseRaces = await axios.get(urlRaces);
+            setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
+            setRacesDetails(responseRaces.data.MRData.RaceTable.Races);
+            setLoading(false);
+        } catch (error) {
+            console.error(`Error retrieving race results:`, error);
+            setLoading(false);
+        }
     }
 
     if (loading) {
         return (
-            <FadeLoader size={75} color="red" />
+            <Loader />
         );
     }
 
@@ -77,7 +80,7 @@ const DriversDetails = () => {
                 </table>
             </div>
             <div className="container">
-                <div className="header">{`Formula 1 ${selectedSeason} Results`}</div>
+                <div className="header">{`Formula 1 ${season} Results`}</div>
                 <table className="custom-table">
                     <thead>
                         <tr>

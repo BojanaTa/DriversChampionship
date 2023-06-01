@@ -5,7 +5,7 @@ import Search from "./components/Search";
 import GetDataContext from "./contexts/GetDataContext";
 import { DataContext } from "./contexts/GetDataContext";
 import { routes } from "./helpers/Helper";
-import Seasons, { SeasonContext } from "./components/Seasons";
+import { SeasonContext } from "./components/Seasons";
 
 const App = () => {
     const [contextValue, setContextValue] = useState({});

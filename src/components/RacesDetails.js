@@ -5,6 +5,8 @@ import Flag from "react-flagkit";
 import Loader from "./Loader";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
 import { DataContext } from "../contexts/GetDataContext";
+import { getColor } from "../helpers/Helper";
+import { SeasonContext } from "./Seasons";
 
 const RacesDetails = () => {
     const [qualifiersResults, setQualifiersResults] = useState([]);
@@ -13,15 +15,14 @@ const RacesDetails = () => {
     const params = useParams();
     const id = params.id;
     const dataContext = useContext(DataContext).contextValue;
+    const season = useContext(SeasonContext).season;
 
     const getResults = async () => {
-        const urlQualifiers = `https://ergast.com/api/f1/2013/${id}/qualifying.json`;
-        const urlResults = `https://ergast.com/api/f1/2013/${id}/results.json`;
+        const urlQualifiers = `https://ergast.com/api/f1/${season}/${id}/qualifying.json`;
+        const urlResults = `https://ergast.com/api/f1/${season}/${id}/results.json`;
         try {
             const responseQualifiers = await axios.get(urlQualifiers);
             const responseResults = await axios.get(urlResults);
-            console.log("qualifiers", responseQualifiers.data.MRData.RaceTable.Races[0]);
-            console.log("results", responseResults.data.MRData.RaceTable.Races[0].Results);
             setQualifiersResults(responseQualifiers.data.MRData.RaceTable.Races[0]);
             setResults(responseResults.data.MRData.RaceTable.Races[0].Results);
             setLoading(false);
@@ -30,31 +31,6 @@ const RacesDetails = () => {
             setLoading(false);
         }
     }
-
-    const getColor = (points) => {
-        switch (points) {
-            case "1":
-                return "gold";
-            case "2":
-                return "lightgray";
-            case "3":
-                return "lightsalmon";
-            case "4":
-                return "lightgreen";
-            case "5":
-                return "lightblue";
-            case "6":
-            case "7":
-            case "8":
-            case "9":
-            case "10":
-            case "11":
-            case "12":
-                return "palegreen";
-            default:
-                return "lavender";
-        }
-    };
 
     const getBestTime = (result) => {
         const times = [result.Q3, result.Q2, result.Q1]
@@ -65,11 +41,20 @@ const RacesDetails = () => {
 
     useEffect(() => {
         getResults();
-    }, []);
+        // eslint-disable-next-line
+    }, [qualifiersResults]);
 
     if (loading) {
         return (
             <Loader />
+        );
+    }
+
+    if(qualifiersResults === undefined) {
+        return (
+            <div className="container">
+                <h1>{`Qualifying Results are not available for year ${season}`}</h1>
+            </div>
         );
     }
 

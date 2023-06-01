@@ -22,6 +22,11 @@ const Breadcrumbs = ({ routes }) => {
             return team.Constructor.name;
         }
 
+        const race = dataContext.races?.filter(race => race.round === breadcrumb.props.match.params.id)[0];
+        if (race !== undefined) {
+            return race.raceName;
+        }
+
         return "Not defined";
     }
 

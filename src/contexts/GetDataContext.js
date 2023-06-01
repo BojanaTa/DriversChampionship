@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export const DataContext = createContext();
@@ -12,33 +12,34 @@ const GetDataContext = (props) => {
     }, [selectedSeason]);
 
     const getData = async () => {
-        console.log("Data loading start");
+        try {
+            console.log("Data loading start");
 
-        const urlDrivers = `http://ergast.com/api/f1/${props.currentSeason}/driverStandings.json`;
-        // const urlDrivers = `https://raw.githubusercontent.com/nkezic/f1/main/AllDrivers`;
-        const urlTeams = `http://ergast.com/api/f1/${props.currentSeason}/constructorStandings.json`;
-        // const urlTeams = "https://raw.githubusercontent.com/nkezic/f1/main/AllTeams";
-        const urlRaces = `https://ergast.com/api/f1/${props.currentSeason}/results/1.json`;
-        // const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/AllRaces";
-        const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
-        const responseDrivers = await axios.get(urlDrivers);
-        const responseTeams = await axios.get(urlTeams);
-        const responseRaces = await axios.get(urlRaces);
-        const responseFlags = await axios.get(urlFlags);
+            const urlDrivers = `http://ergast.com/api/f1/${props.currentSeason}/driverStandings.json`;
+            const urlTeams = `http://ergast.com/api/f1/${props.currentSeason}/constructorStandings.json`;
+            const urlRaces = `https://ergast.com/api/f1/${props.currentSeason}/results/1.json`;
+            const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+            const responseDrivers = await axios.get(urlDrivers);
+            const responseTeams = await axios.get(urlTeams);
+            const responseRaces = await axios.get(urlRaces);
+            const responseFlags = await axios.get(urlFlags);
 
-        console.log("Data loading end");
+            console.log("Data loading end");
 
-        props.callback(
-            {
-                drivers: responseDrivers.data.MRData.StandingsTable.StandingsLists[0].DriverStandings,
-                teams: responseTeams.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
-                races: responseRaces.data.MRData.RaceTable.Races,
-                flagsDetails: responseFlags.data,
-            }
-        );
+            props.callback(
+                {
+                    drivers: responseDrivers.data.MRData.StandingsTable.StandingsLists[0].DriverStandings,
+                    teams: responseTeams.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
+                    races: responseRaces.data.MRData.RaceTable.Races,
+                    flagsDetails: responseFlags.data,
+                }
+            );
+        } catch (error) {
+            console.error(`Error retrieving race results:`, error);
+        }
     }
 
-    if(selectedSeason != props.currentSeason) {
+    if (selectedSeason !== props.currentSeason) {
         setSelectedSeason(props.currentSeason);
     }
 }

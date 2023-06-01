@@ -3,21 +3,29 @@ import { useNavigate } from "react-router-dom";
 import Flag from "react-flagkit";
 import { DataContext } from "../contexts/GetDataContext";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
+import { SeasonContext } from "./Seasons";
+import Loader from "./Loader";
 
 const Races = () => {
     const navigate = useNavigate();
     const dataContext = useContext(DataContext).contextValue;
-    console.log("Races dataContext", dataContext);
+    const season = useContext(SeasonContext).season;
 
     const handleClickRacesDetails = (id) => {
         const linkTo = `/races/${id}`;
         navigate(linkTo);
     }
 
+    if (dataContext.races === undefined) {
+        return (
+            <Loader />
+        );
+    }
+
     return (
         <div className="container">
             <h1>Race Calendar</h1>
-            <div className="header">Race Calendar - 2013</div>
+            <div className="header">{`Race Calendar - ${season}`}</div>
             <table className="custom-table">
                 <thead>
                     <tr>
@@ -44,9 +52,7 @@ const Races = () => {
                                 {race.Results[0].Driver.familyName}
                             </td>
                         </tr>
-
                     )}
-
                 </tbody>
             </table>
         </div>
