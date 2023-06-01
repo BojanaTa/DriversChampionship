@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Flag from "react-flagkit";
 import { FadeLoader } from "react-spinners";
 import { getFlagByCountry, getFlagByNationality } from "../helpers/FlagHelper";
-import { DataContext } from "../App";
+import { DataContext } from "../contexts/GetDataContext";
+import { getColor } from "../helpers/Helper";
+import { SeasonContext } from "./Seasons";
 
 const DriversDetails = () => {
     const [driverDetails, setDriverDetails] = useState({});
@@ -13,52 +14,24 @@ const DriversDetails = () => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const id = params.id;
-    const dataContext = useContext(DataContext);
-
-    // console.log("DriversDetails dataContext", dataContext);
+    const dataContext = useContext(DataContext).contextValue;
+    const selectedSeason = useContext(SeasonContext).season;
    
     useEffect(() => {
         getDriverDetails();
         // eslint-disable-next-line
-    }, []);
+    }, [driverDetails]);
 
     const getDriverDetails = async () => {
-        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
+        const url = `http://ergast.com/api/f1/${selectedSeason}/drivers/${id}/driverStandings.json`;
         // const url = `https://raw.githubusercontent.com/nkezic/f1/main/DriverDetails`;
-        const urlRaces = `http://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        const urlRaces = `http://ergast.com/api/f1/${selectedSeason}/drivers/${id}/results.json`;
         // const urlRaces = "https://raw.githubusercontent.com/nkezic/f1/main/DriverRaces";
         const response = await axios.get(url);
         const responseRaces = await axios.get(urlRaces);
         setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
         setRacesDetails(responseRaces.data.MRData.RaceTable.Races);
         setLoading(false);
-    }
-
-    const getColor = (position) => {
-        ///console.log(position);
-        switch (position) {
-            case "1":
-                // console.log("yellow");
-                return "gold";
-            case "2":
-                return "lightgray";
-            case "3":
-                return "lightsalmon";
-            case "4":
-                return "lightgreen";
-            case "5":
-                return "lightblue";
-            case "6":
-            case "7":
-            case "8":
-            case "9":
-            case "10":
-            case "11":
-            case "12":
-                return "palegreen";
-            default:
-                return "lavender";
-        }
     }
 
     if (loading) {
@@ -104,7 +77,7 @@ const DriversDetails = () => {
                 </table>
             </div>
             <div className="container">
-                <div className="header">Formula 1 2013 Results</div>
+                <div className="header">{`Formula 1 ${selectedSeason} Results`}</div>
                 <table className="custom-table">
                     <thead>
                         <tr>
@@ -132,6 +105,7 @@ const DriversDetails = () => {
                         )}
                     </tbody>
                 </table>
+                <div className="footer"></div>
             </div>
         </div>
 

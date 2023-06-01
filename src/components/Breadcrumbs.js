@@ -1,28 +1,24 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
-import axios from "axios";
-import { DataContext } from "../App";
+import { DataContext } from "../contexts/GetDataContext";
 
 const Breadcrumbs = ({ routes }) => {
     const breadcrumbs = useBreadcrumbs(routes);
-    const dataContext = useContext(DataContext);
+    const dataContext = useContext(DataContext).contextValue;
 
     const getBreadcrumbText = (breadcrumb) => {
-        //console.log("breadcrumb in getText", breadcrumb);
         if (breadcrumb.props.children !== undefined) {
             return breadcrumb.props.children;
         }
 
-        const driver = dataContext.drivers.filter(driver => driver.Driver.driverId === breadcrumb.props.match.params.id)[0];
+        const driver = dataContext.drivers?.filter(driver => driver.Driver.driverId === breadcrumb.props.match.params.id)[0];
         if (driver !== undefined) {
-            // console.log("driver", driver);
             return `${driver.Driver.givenName} ${driver.Driver.familyName}`;
         }
 
-        const team = dataContext.teams.filter(team => team.Constructor.constructorId === breadcrumb.props.match.params.id)[0];
+        const team = dataContext.teams?.filter(team => team.Constructor.constructorId === breadcrumb.props.match.params.id)[0];
         if (team !== undefined) {
-            // console.log("team", team);
             return team.Constructor.name;
         }
 
@@ -31,9 +27,9 @@ const Breadcrumbs = ({ routes }) => {
 
     return (
         <div className="breadcrumbs">
-            {breadcrumbs.map(({ match, breadcrumb, location }) => 
-                <Link key={match.pathname} to={match.pathname} state={location.state}>
-                    <input type="button" value={getBreadcrumbText(breadcrumb)} />
+            {breadcrumbs.map(({ match, breadcrumb }) => 
+                <Link key={match.pathname} to={match.pathname}>
+                    <input className="breadcrumbs-input" type="button" value={getBreadcrumbText(breadcrumb)} />
                 </Link>
             )}
         </div>

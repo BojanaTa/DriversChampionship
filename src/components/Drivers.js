@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Flag from "react-flagkit";
-import { DataContext } from "../App";
 import { getFlagByNationality } from "../helpers/FlagHelper";
+import { DataContext } from "../contexts/GetDataContext";
+import { SeasonContext } from "./Seasons";
+import { FadeLoader } from "react-spinners";
 
 const Drivers = () => {
     const navigate = useNavigate();
-    const dataContext = useContext(DataContext);
+    const dataContext = useContext(DataContext).contextValue;
+    const season = useContext(SeasonContext).season;
 
-    console.log("Drivers dataContext", dataContext);
+    console.log("isDataLoading", dataContext.isDataLoading);
 
     const handleClickDetails = (id) => {
         const linkTo = `/drivers/${id}`;
@@ -18,10 +21,10 @@ const Drivers = () => {
     return (
         <div className="container">
             <h1>Drivers Championships</h1>
-            <div className="header">Drivers Championships Standings - 2013</div>
+            <div className="header">{`Drivers Championships Standings - ${season}`}</div>
             <table className="custom-table">
                 <tbody>
-                    {dataContext.drivers.map(driver =>
+                    {dataContext.drivers?.map(driver =>
                         <tr key={driver.Driver.driverId}>
                             <td>{driver.position}</td>
                             <td className="pointer"
@@ -37,6 +40,7 @@ const Drivers = () => {
                     )}
                 </tbody>
             </table>
+            <div className="footer"></div>
         </div>
     );
 }

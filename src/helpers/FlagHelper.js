@@ -9,7 +9,7 @@ export const getFlagByNationality = (driverNationality, flagsDetails) => {
         nationality = driverNationality;
     }
 
-    const flag = flagsDetails.find(item => item.nationality === nationality);
+    const flag = flagsDetails?.find(item => item.nationality === nationality);
     
     return flag?.alpha_2_code;
 }
@@ -29,7 +29,7 @@ export const getFlagByCountry = (raceCountry, flagsDetails) => {
         country = raceCountry;
     }
 
-    const flag = flagsDetails.find(item => item.en_short_name === country);
+    const flag = flagsDetails?.find(item => item.en_short_name === country);
 
     return flag?.alpha_2_code;
 }
