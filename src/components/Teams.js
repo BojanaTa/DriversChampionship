@@ -1,63 +1,18 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
+import { DataContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Flag from "react-flagkit";
-import Loader from "./Loader";
+import { getFlagByNationality } from "../helpers/FlagHelper";
 
 const Teams = () => {
-  const [teams, setTeams] = useState([]);
-  const [flagsDetails, setFlagsDetails] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dataContext = useContext(DataContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getTeams();
-  }, []);
-
-  const getTeams = async () => {
-    const url = //"http://ergast.com/api/f1/2013/constructorStandings.json";
-    "https://raw.githubusercontent.com/nkezic/f1/main/AllTeams";
-    const urlFlags =
-    "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
-    try {
-      const response = await axios.get(url);
-      const responseFlags = await axios.get(urlFlags);
-      setTeams(
-        response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
-      );
-      setFlagsDetails(responseFlags.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error retrieving teams:", error);
-    }
-  };
-
-  const getFlag = (driverNationality) => {
-    let nationality = "";
-
-    if (driverNationality === "British") {
-      nationality = "British, UK";
-    } else if (driverNationality === "Dutch") {
-      nationality = "Dutch, Netherlandic";
-    } else {
-      nationality = driverNationality;
-    }
-
-    const flag = flagsDetails.find((item) => item.nationality === nationality);
-    return flag ? flag.alpha_2_code : "";
-  };
 
   const handleClickTeams = (id) => {
     const linkTo = `/teams/${id}`;
     navigate(linkTo);
   };
-
-  if (loading) {
-    return (
-      <Loader />
-    );
-  }
 
   return (
     <div className="container">
@@ -65,27 +20,39 @@ const Teams = () => {
       <div className="header">Constructor Championships Standings - 2013</div>
       <table className="custom-table">
         <tbody>
-          {teams.map((team) => (
+          {dataContext.teams.map((team) => (
             <tr key={team.Constructor.constructorId}>
               <td>{team.position}</td>
               <td
                 className="pointer"
                 onClick={() => handleClickTeams(team.Constructor.constructorId)}
               >
-                <Flag country={getFlag(team.Constructor.nationality)} />
+                <Flag country={getFlagByNationality(team.Constructor.nationality, dataContext.flagsDetails)} />
                 {team.Constructor.name}
               </td>
-              <td>Details <Link to={team.Constructor.url} target="_blank"><img src="/images/link-black.png" color="red" className="link-btn" alt="Wikipedia information about team" /></Link></td>
+              <td>
+                Details{" "}
+                <Link to={team.Constructor.url} target="_blank">
+                  <img
+                    src="/images/link-black.png"
+                    color="red"
+                    className="link-btn"
+                    alt="Wikipedia information about team"
+                  />
+                </Link>
+              </td>
               <td>{team.points}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="footer"></div>
     </div>
   );
 };
 
 export default Teams;
+
 
 
 

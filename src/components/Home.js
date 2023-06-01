@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
     return (
         <div className="news-wrap">
-            <h1>News</h1>
+            {/* <h1>News</h1> */}
             <table className="news-container">
+                <tbody>
                 <tr>
                     <td >
                         <Link to="https://www.formula1.com/en/latest/article.crypto-com-overtake-of-the-month-award.4NSk8Aciia1hOZ9QEmmSjq.html" target="_blank">
@@ -54,6 +55,7 @@ const Home = () => {
                         </Link>
                     </td>
                 </tr>
+                </tbody>
             </table>
 
         </div>
