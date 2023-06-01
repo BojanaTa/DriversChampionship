@@ -15,7 +15,7 @@ const Seasons = () => {
         try {
             const tempSeasons = [];
 
-            for (let i = 1950; i <= 2023; i++) {
+            for (let i = 1950; i <= new Date().getFullYear(); i++) {
                 tempSeasons.push(i.toString());
             }
 
