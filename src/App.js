@@ -17,6 +17,14 @@ const App = () => {
 
     const setSeasonCallback = (value) => {
         setSeason(value);
+        setContextValueCallback(
+            {
+                drivers: undefined,
+                teams: undefined,
+                races: undefined,
+                flagsDetails: undefined,
+            }
+        );
     }
 
     return (
