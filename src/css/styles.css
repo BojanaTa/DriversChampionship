@@ -315,8 +315,9 @@ h3 {
     cursor: pointer;
 }
 
-.breadcrumbs-input:hover {
-    background-color: red;
+.breadcrumbs-input:hover,
+.breadcrumbs-active {
+    background-color: green;
     color: #fff;
 }
 
