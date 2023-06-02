@@ -17,7 +17,7 @@ const TeamsDetails = () => {
   const season = useContext(SeasonContext).season;
 
   const getRaceResults = async (id) => {
-    const urlTeams = `http://ergast.com/api/f1/${season}/constructors/${id}/constructorStandings.json`;
+    const urlTeams = `https://ergast.com/api/f1/${season}/constructors/${id}/constructorStandings.json`;
     const url = `https://ergast.com/api/f1/${season}/constructors/${id}/results.json`;
     try {
       const responseTeams = await axios.get(urlTeams);

@@ -24,8 +24,8 @@ const DriversDetails = () => {
 
     const getDriverDetails = async () => {
         try{
-            const url = `http://ergast.com/api/f1/${season}/drivers/${id}/driverStandings.json`;
-            const urlRaces = `http://ergast.com/api/f1/${season}/drivers/${id}/results.json`;
+            const url = `https://ergast.com/api/f1/${season}/drivers/${id}/driverStandings.json`;
+            const urlRaces = `https://ergast.com/api/f1/${season}/drivers/${id}/results.json`;
             const response = await axios.get(url);
             const responseRaces = await axios.get(urlRaces);
             setDriverDetails(response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
@@ -108,7 +108,6 @@ const DriversDetails = () => {
                         )}
                     </tbody>
                 </table>
-                <div className="footer"></div>
             </div>
         </div>
 

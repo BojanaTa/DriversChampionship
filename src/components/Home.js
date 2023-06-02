@@ -5,7 +5,6 @@ import Seasons from "./Seasons";
 const Home = () => {
     return (
         <div className="news-wrap">
-            {/* <h1>News</h1> */}
             <Seasons />
             <table className="news-container">
                 <tbody>
