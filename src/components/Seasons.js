@@ -34,7 +34,7 @@ const Seasons = () => {
     }
 
     return (
-        <div>
+        <div className="seasons-container">
             <p>Select season: </p>
             <input
                 className="input-seasons"

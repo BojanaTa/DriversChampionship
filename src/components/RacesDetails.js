@@ -60,17 +60,12 @@ const RacesDetails = () => {
 
     return (
         <div className="wrap">
-            <div className="driver-details">
+            <div className="races-details">
+                <div className="details-header">
+                    <Flag country={getFlagByCountry(qualifiersResults.Circuit.Location.country, dataContext.flagsDetails)} />
+                    <p>{qualifiersResults.raceName}</p>
+                </div>
                 <table className="driver">
-                    <thead>
-                        <tr>
-                            <td>
-                                <Flag country={getFlagByCountry(qualifiersResults.Circuit.Location.country, dataContext.flagsDetails)} />
-
-                                <p>{qualifiersResults.raceName}</p>
-                            </td>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
                             <td>Country: </td>
@@ -103,6 +98,7 @@ const RacesDetails = () => {
                             <td>Driver</td>
                             <td>Team</td>
                             <td>Best Time</td>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -120,6 +116,7 @@ const RacesDetails = () => {
                         )}
                     </tbody>
                 </table>
+                <div className="footer"></div>
             </div>
 
             <div className="container">
@@ -151,6 +148,7 @@ const RacesDetails = () => {
                         )}
                     </tbody>
                 </table>
+                <div className="footer"></div>
             </div>
         </div>
     );

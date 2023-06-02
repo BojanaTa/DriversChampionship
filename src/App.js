@@ -32,10 +32,12 @@ const App = () => {
             <GetDataContext currentSeason={season} callback={setContextValueCallback} />
             <Router>
                 <nav className="nav-bar">
-                    <div className="img">
-                        <NavLink to="/"><img src="/images/F1-logo2.png" alt="Link Logo" className="img" /></NavLink>
+                        <div className="nav-img">
+                        <NavLink to="/" className={({ isActive }) => (isActive ? "link-active" : "link")}>
+                            <img src="/images/F1-logo2.png" alt="Link Logo" className="img" />
+                            <img src="/images/F1-logo.png" alt="Link Logo" className="img1" />
+                        </NavLink>
                     </div>
-
                     <ul>
                         <li>
                             <NavLink to="/drivers" className={({ isActive }) => (isActive ? "link-active" : "link")}><img src="/images/helmet-white.png" alt="F1 helmet" />Drivers</NavLink>
@@ -50,7 +52,7 @@ const App = () => {
                 </nav>
 
                 <div className="nav-wrap">
-                    <SeasonContext.Provider value={{season, setSeasonCallback}}>
+                    <SeasonContext.Provider value={{ season, setSeasonCallback }}>
                         <DataContext.Provider
                             value={
                                 {
