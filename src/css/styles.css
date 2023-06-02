@@ -420,7 +420,11 @@ h3 {
     }
 
     .custom-table {
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .header {
+        font-size: 14px;
     }
 
     .img {
