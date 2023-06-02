@@ -15,8 +15,8 @@ const GetDataContext = (props) => {
         try {
             console.log("Data loading start");
 
-            const urlDrivers = `http://ergast.com/api/f1/${props.currentSeason}/driverStandings.json`;
-            const urlTeams = `http://ergast.com/api/f1/${props.currentSeason}/constructorStandings.json`;
+            const urlDrivers = `https://ergast.com/api/f1/${props.currentSeason}/driverStandings.json`;
+            const urlTeams = `https://ergast.com/api/f1/${props.currentSeason}/constructorStandings.json`;
             const urlRaces = `https://ergast.com/api/f1/${props.currentSeason}/results/1.json`;
             const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
             const responseDrivers = await axios.get(urlDrivers);

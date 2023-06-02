@@ -317,7 +317,7 @@ h3 {
 
 .breadcrumbs-input:hover,
 .breadcrumbs-active {
-    background-color: green;
+    background-color: red;
     color: #fff;
 }
 
